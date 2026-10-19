@@ -1,0 +1,43 @@
+name: Publicar presentacion academica
+on:
+  push:
+    branches: [main]
+    paths:
+      - "index.html"
+      - "robots.txt"
+      - ".github/workflows/pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Obtener sitio
+        uses: actions/checkout@v4
+      - name: Preparar artefacto publico
+        run: |
+          mkdir -p public
+          cp index.html public/index.html
+          cp robots.txt public/robots.txt
+          touch public/.nojekyll
+      - name: Configurar GitHub Pages
+        uses: actions/configure-pages@v5
+      - name: Subir solamente sitio publico
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+      - name: Desplegar
+        id: deployment
+        uses: actions/deploy-pages@v4
