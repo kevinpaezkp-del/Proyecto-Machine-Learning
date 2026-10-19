@@ -1,0 +1,4 @@
+Modelo,Tipo,MAE_dias,MSE_dias2,RMSE_dias,R2,Sesgo_predicho_menos_real,Tolerancia_masmenos_3_dias_pct
+Random Forest,Modelo elegido,6.192420,146.498299,12.103648,0.241275,-0.615288,46.813972
+Mediana constante,Línea base,7.334524,219.191682,14.805124,-0.135208,-5.109473,51.569600
+Referencia P50 histórica,Línea base,6.616064,175.285676,13.239550,0.092184,-4.429446,53.484339
