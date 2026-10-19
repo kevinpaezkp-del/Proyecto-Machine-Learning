@@ -1,38 +1,56 @@
-# Estimar para anticipar · Proyecto Machine Learning I
+# Estimación de estancia hospitalaria · Machine Learning I
 
-**Presentación web interactiva** del proyecto de regresión para estimación de días restantes de estancia hospitalaria. La exposición está diseñada para 10 minutos e incluye análisis de datos, selección de modelo, métricas de validación y un corte operativo agregado.
+Presentación académica interactiva, organizada en diez momentos para sustentar un proyecto de regresión supervisada bajo **CRISP-DM**.
 
-## Ver el sitio
-Una vez habilitado GitHub Pages, el enlace de la presentación será:
+**[Abrir presentación web](https://kevinpaezkp-del.github.io/Proyecto-Machine-Learning/)**
 
-https://kevinpaezkp-del.github.io/Proyecto-Machine-Learning/
+## Recorrido de sustentación
 
-También puede abrirse localmente descargando el repositorio y abriendo `index.html` en un navegador.
+| # | Tema | Evidencia |
+| --- | --- | --- |
+| 01 | Problema y decisión | Objetivo, stakeholders, métrica de negocio |
+| 02 | Boletín y fuentes | Boletín de Gestión Clínica, CMBD, GRD y censo/cargos |
+| 03 | Análisis exploratorio | Distribución de estancia, P25/P50/P75/P90/P95 y valores extremos |
+| 04 | Variables | Ocho predictores, codificación, escalado y redundancia |
+| 05 | Diseño experimental | Cohortes 2024/2025/2026, GroupKFold por episodio |
+| 06 | Comparación de modelos | Tabla CV con entrenamiento, variabilidad, RMSE y R²; test 2026 separado |
+| 07 | Errores según estancia | MAE por grupos ≤3, 4–7, 8–14, 15–28 y >28 días restantes |
+| 08 | Sesgos y límites | Sexo, severidad, ponderación por episodio y riesgos |
+| 09 | Tablero y calculadora | Corte agregado de 132 estimaciones; censo y calculadora pedagógicos |
+| 10 | Decisión y roles | Cracks, Líderes, Jefes/jefas; propuesta de valor y piloto |
 
-## Activar publicación temporal
-1. Abrir [Settings → Pages](https://github.com/kevinpaezkp-del/Proyecto-Machine-Learning/settings/pages).
-2. En **Build and deployment → Source**, seleccionar **GitHub Actions**.
-3. Si el plan de GitHub no admite Pages para repositorios privados, cambiar la visibilidad a pública desde **Settings → General → Danger Zone → Change repository visibility**. Esta operación hace visible el repositorio completo y su historial.
-4. Abrir [Actions → Publicar presentacion academica](https://github.com/kevinpaezkp-del/Proyecto-Machine-Learning/actions/workflows/pages.yml) y pulsar **Run workflow**, rama `main`.
-5. Confirmar el enlace real en **Settings → Pages → Visit site**.
+## Resultados principales
 
-El flujo de publicación está configurado para subir **solo** `index.html`, `robots.txt` y `.nojekyll`; excluye documentación, el código del despliegue local y cualquier archivo de modelo.
+- **37.053 episodios** de 2024 a 2026.
+- **Random Forest** seleccionado por menor MAE CV de 2025: **5,98 días**, desviación ±0,16.
+- **Prueba temporal 2026**: MAE **6,19 días**, R² **0,241**; referencia P50: MAE **6,62 días**.
+- El error crece hasta **28,66 días** cuando los días restantes reales superan 28; el sesgo es de **−23,98 días**.
+- Corte operativo real agregado: **132 estimaciones de 228 hospitalizaciones**, mediana **6,8 días restantes**.
+- **Precaución**: el desempeño promedio cambia si la evaluación da igual peso a cada episodio en lugar de cada snapshot.
 
-## Desactivarlo
-En **Settings → Pages** utilizar **Unpublish site** (si está disponible) o desactivar la fuente de publicación. Si el repositorio se hizo público temporalmente, revertir la visibilidad a privada en **Settings → General**. La despublicación no revierte copias que otros ya hayan podido guardar.
+## Cómo funciona la web
 
-## Resultados metodológicos
-- Se evaluaron episodios de 2024–2026.
-- Random Forest fue seleccionado mediante validación cruzada de 2025 por MAE promedio.
-- MAE CV: 5,98 días; MAE retrospectivo 2026: 6,19 días; R²: 0,241.
-- Un corte de 228 hospitalizaciones obtuvo 132 estimaciones agregadas (57,9 % de cobertura).
-- Una evaluación prospectiva sigue siendo necesaria para medir el desempeño diario y efectos operativos.
+Interfaz HTML/CSS/JavaScript sin frameworks ni servicios externos. Navegación por menú o flechas del teclado. Tablas de entrenamiento y prueba, intervalos de error, auditoría por subgrupos, censo con buscador y filtros, y calculadora ilustrativa.
 
-## Archivos
-- `index.html`: presentación y tablero integrado; sin llamadas a APIs de registros clínicos.
-- `datos/`: series agregadas de modelos y corte.
-- `docs/`: ficha estadística y justificación.
-- `app_demo.py`: aplicación local de demostración, que **necesita** un modelo guardado en un equipo autorizado; no funciona desde Pages.
+**El censo de 132 filas y la calculadora son ejemplos pedagógicos de interfaz.** Las cifras globales del corte son resultados agregados observados. Los renglones de la tabla no corresponden a registros de pacientes y la calculadora no ejecuta el regresor entrenado. Para dos inferencias reales fuera de Jupyter existe el servicio local `app_demo.py`, que necesita el modelo institucional `.joblib` en un equipo autorizado.
 
-## Alcance y difusión
-No se publican registros individuales, fuentes CMBD ni modelos entrenados. Se muestran estadísticas agregadas observadas. El sitio solicita a buscadores que eviten indexarlo; esto **no restringe** quién puede acceder con el enlace. La publicación de resultados institucionales sigue sujeta a las condiciones de uso y autorizaciones correspondientes.
+## Documentos de apoyo
+
+- [Ficha de datos](docs/ficha_datos.md)
+- [Bitácora de ejecución](docs/ejecucion_integral.md)
+- [Variables y tipos](docs/diccionario_modelo.md)
+- [Métricas CV](datos/metricas_cv.csv)
+- [Prueba temporal 2026](datos/metricas_test_2026.csv)
+- [Corte operativo agregado](datos/corte_operativo.json)
+- [Guía de sustentación](docs/guia_sustentacion.md)
+- [Lista para Canvas](docs/lista_entrega_canvas.md)
+
+## Publicación
+
+GitHub Actions despliega **solo** `index.html`, `assets/site.css`, `assets/site.js`, `robots.txt` y `.nojekyll`. Esta separación evita alojar el cuaderno con rutas internas o el modelo entrenado en GitHub Pages. Publicar un repositorio hace visibles sus archivos y su historial aunque Pages use solo un subconjunto.
+
+Para retirar el sitio: Settings → Pages → Unpublish site. Si se desea cerrar el repositorio, Settings → General → Change repository visibility → Private; tener en cuenta que no deshace copias ya descargadas.
+
+## Interpretación
+
+El modelo apoya planeación y priorización del seguimiento; **no determina ni autoriza altas clínicas**. Se requieren validación prospectiva del GRD provisional, seguimiento de calidad y medición del impacto real antes de despliegue institucional.
