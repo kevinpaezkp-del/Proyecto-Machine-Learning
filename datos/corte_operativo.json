@@ -1,0 +1,26 @@
+{
+  "fecha_corte": "2026-10-19",
+  "modelo": "Random Forest",
+  "n_activos": 228,
+  "n_estimables": 132,
+  "dias_transcurridos_mediana": 12.3,
+  "dias_restantes_mediana": 6.8,
+  "dias_restantes_p25": 5.1,
+  "dias_restantes_p75": 11.1,
+  "estancia_total_mediana": 19.3,
+  "distribucion": [
+    {
+      "grupo": "0–5 días",
+      "n": 31
+    },
+    {
+      "grupo": "5–10 días",
+      "n": 52
+    },
+    {
+      "grupo": "10+ días",
+      "n": 49
+    }
+  ],
+  "observacion": "Estimaciones sin evaluación de error hasta observar egresos. Se omiten registros individuales."
+}
