@@ -1,28 +1,38 @@
-# Estimar para anticipar · Machine Learning I
+# Estimar para anticipar · Proyecto Machine Learning I
 
-Sitio de sustentación (10 momentos / 10 minutos) y resultados agregados del proyecto **Estimación de días restantes de estancia hospitalaria**.
+**Presentación web interactiva** del proyecto de regresión para estimación de días restantes de estancia hospitalaria. La exposición está diseñada para 10 minutos e incluye análisis de datos, selección de modelo, métricas de validación y un corte operativo agregado.
 
-## Contenido
-- `index.html`: presentación interactiva sin dependencias externas, compatible con GitHub Pages y ejecución local.
-- `README.md`: contexto, reproducción y advertencias metodológicas.
-- `.nojekyll`: indica que el sitio no requiere Jekyll.
+## Ver el sitio
+Una vez habilitado GitHub Pages, el enlace de la presentación será:
 
-## Cómo utilizar
-Abrir `index.html` en un navegador. Avanzar con las flechas del teclado o la navegación lateral. El botón «PDF / imprimir» permite generar una versión imprimible. Las gráficas resumidas de la página se calculan a partir de resultados agregados de la ejecución.
+https://kevinpaezkp-del.github.io/Proyecto-Machine-Learning/
 
-## Resultados
-Evaluación retrospectiva con datos de 2024–2026. Random Forest: MAE CV 5,976 días; MAE test 2026 6,192 días; R² test 0,241; comparación P50 histórico 6,616 días de MAE. El corte operativo contiene 132 estimaciones de 228 episodios, sin error de pronóstico aún observable.
+También puede abrirse localmente descargando el repositorio y abriendo `index.html` en un navegador.
 
-El error por episodio igual-ponderado (4,779 días) no supera la referencia histórica (4,692 días). El resultado favorable de MAE por snapshot no equivale a beneficio clínico demostrado.
+## Activar publicación temporal
+1. Abrir [Settings → Pages](https://github.com/kevinpaezkp-del/Proyecto-Machine-Learning/settings/pages).
+2. En **Build and deployment → Source**, seleccionar **GitHub Actions**.
+3. Si el plan de GitHub no admite Pages para repositorios privados, cambiar la visibilidad a pública desde **Settings → General → Danger Zone → Change repository visibility**. Esta operación hace visible el repositorio completo y su historial.
+4. Abrir [Actions → Publicar presentacion academica](https://github.com/kevinpaezkp-del/Proyecto-Machine-Learning/actions/workflows/pages.yml) y pulsar **Run workflow**, rama `main`.
+5. Confirmar el enlace real en **Settings → Pages → Visit site**.
 
-## Seguridad de la información
-**No incluir** CMBD, boletines clínicos, censos por paciente, reportes de cargos, archivos `.joblib`, ni cuadernos con salidas individuales o rutas internas. El sitio se limita a métricas agregadas. Antes de hacer público el repositorio o GitHub Pages, confirmar autorización institucional para la difusión de resultados agregados.
+El flujo de publicación está configurado para subir **solo** `index.html`, `robots.txt` y `.nojekyll`; excluye documentación, el código del despliegue local y cualquier archivo de modelo.
 
-## Entrega universitaria
-Canvas requiere informe PFI PDF, resumen en inglés PDF, cuaderno reproducible, ficha de datos, declaración de IA y, si corresponde, anexos A/B y explicación de acceso a datos originales.
+## Desactivarlo
+En **Settings → Pages** utilizar **Unpublish site** (si está disponible) o desactivar la fuente de publicación. Si el repositorio se hizo público temporalmente, revertir la visibilidad a privada en **Settings → General**. La despublicación no revierte copias que otros ya hayan podido guardar.
 
-## Alcance del despliegue
-La web documenta las predicciones del corte. **No ejecuta el modelo Random Forest** en el navegador; para el bono de inferencia en vivo es necesario mostrar dos casos nuevos en una aplicación que cargue el regresor original fuera de Jupyter.
+## Resultados metodológicos
+- Se evaluaron episodios de 2024–2026.
+- Random Forest fue seleccionado mediante validación cruzada de 2025 por MAE promedio.
+- MAE CV: 5,98 días; MAE retrospectivo 2026: 6,19 días; R²: 0,241.
+- Un corte de 228 hospitalizaciones obtuvo 132 estimaciones agregadas (57,9 % de cobertura).
+- Una evaluación prospectiva sigue siendo necesaria para medir el desempeño diario y efectos operativos.
 
-## GitHub Pages
-En el repositorio: Settings → Pages → Build and deployment → Deploy from a branch → main / (root). En GitHub Free podría ser necesario que el repositorio sea público, lo cual debe considerarse *solo tras autorizar la publicación*.
+## Archivos
+- `index.html`: presentación y tablero integrado; sin llamadas a APIs de registros clínicos.
+- `datos/`: series agregadas de modelos y corte.
+- `docs/`: ficha estadística y justificación.
+- `app_demo.py`: aplicación local de demostración, que **necesita** un modelo guardado en un equipo autorizado; no funciona desde Pages.
+
+## Alcance y difusión
+No se publican registros individuales, fuentes CMBD ni modelos entrenados. Se muestran estadísticas agregadas observadas. El sitio solicita a buscadores que eviten indexarlo; esto **no restringe** quién puede acceder con el enlace. La publicación de resultados institucionales sigue sujeta a las condiciones de uso y autorizaciones correspondientes.
