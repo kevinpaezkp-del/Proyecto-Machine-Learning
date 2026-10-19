@@ -1,119 +1,204 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Estimar para anticipar | Proyecto Machine Learning I</title><meta name="description" content="Proyecto Final Integrador: estimación de días restantes de estancia hospitalaria, validación y decisión operacional."><meta name="robots" content="noindex,nofollow,noarchive"><style>
-:root{--bg:#071420;--surface:#0e2232;--soft:#152c3d;--line:#284356;--white:#f3f7fa;--muted:#a3bac8;--teal:#68e0cb;--lime:#d7f28c;--amber:#ffc985;--red:#ffadab}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--white);font-family:Inter,"Segoe UI",Arial,sans-serif;line-height:1.53}button,a{font:inherit}a{color:var(--teal)}.layout{display:grid;grid-template-columns:256px 1fr;min-height:100vh}.rail{padding:26px 20px;position:sticky;top:0;height:100vh;border-right:1px solid var(--line);background:#0a1a27;display:flex;flex-direction:column;gap:16px}.brand{font-size:11px;letter-spacing:2.2px;color:var(--teal);font-weight:800}.rail h2{font-size:21px;line-height:1.2;margin:0}.nav{display:grid;gap:4px;overflow-y:auto}.nav button{border:0;background:transparent;color:var(--muted);text-align:left;padding:11px 12px;border-radius:10px;cursor:pointer;font-size:13px}.nav button:hover,.nav button.on{background:#18394a;color:white}.nav .num{display:inline-block;color:var(--teal);min-width:27px;font-weight:700}.railfoot{margin-top:auto;font-size:11px;color:var(--muted)}main{min-width:0;padding:38px clamp(20px,5vw,80px) 28px}.topline{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:30px}.eyebrow{color:var(--teal);font-size:12px;letter-spacing:2.3px;font-weight:750;text-transform:uppercase}.tools{display:flex;gap:8px}.tools button,.next,.ghost{background:transparent;color:var(--white);border:1px solid var(--line);padding:9px 14px;border-radius:10px;cursor:pointer}.tools button:hover,.next:hover{border-color:var(--teal)}section{display:none;min-height:calc(100vh - 170px);animation:appear .33s ease}section.active{display:block}@keyframes appear{from{opacity:.3;transform:translateY(7px)}to{opacity:1;transform:none}}.hero{font-size:clamp(38px,5.6vw,78px);line-height:1.07;letter-spacing:-2.6px;max-width:1000px;margin:20px 0 24px;font-weight:800}.hero em{font-style:normal;color:var(--teal)}h1{font-size:clamp(30px,4vw,54px);line-height:1.1;letter-spacing:-1.4px;margin:14px 0 18px}h3{font-size:19px;margin:0 0 10px}.lead{font-size:clamp(16px,2vw,23px);color:#c3d6df;max-width:850px}.copy{color:var(--muted);max-width:950px}.muted{color:var(--muted)}.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin:25px 0}.tile,.panel,.note{border:1px solid var(--line);border-radius:18px;background:var(--surface);padding:20px}.tile b{display:block;font-size:clamp(26px,3vw,40px);line-height:1.2;letter-spacing:-1px}.tile small{color:var(--muted);display:block;margin-top:9px}.tile b.teal{color:var(--teal)}.tile b.lime{color:var(--lime)}.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:17px;margin:24px 0}.panel p,.panel li{color:#b3ccd7}.panel ul{padding-left:18px}.timeline{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:26px 0}.step{padding:19px;border-top:3px solid var(--teal);background:var(--surface);border-radius:12px}.step b{font-size:20px}.step span{display:block;color:var(--muted);font-size:13px}.bars{display:flex;flex-direction:column;gap:12px}.barrow{display:grid;grid-template-columns:182px 1fr 61px;align-items:center;gap:12px;font-size:13px}.track{height:13px;border-radius:999px;background:#25404d;overflow:hidden}.fill{height:100%;background:linear-gradient(90deg,#3ea6a3,var(--teal));border-radius:999px}.barrow.highlight .fill{background:linear-gradient(90deg,var(--lime),#82ca86)}.barrow b{text-align:right;font-variant-numeric:tabular-nums}.chartbox{border:1px solid var(--line);background:var(--surface);padding:20px;border-radius:17px;margin:20px 0}.chartbox h3{margin-bottom:15px}table{border-collapse:collapse;width:100%;font-size:13px}td,th{padding:13px;border-bottom:1px solid var(--line);text-align:left}th{color:var(--teal);font-weight:600}td{color:#d2e1e8}tr:last-child td{border-bottom:0}.call{padding:18px 20px;border-left:3px solid var(--teal);background:#0f2a35;border-radius:0 12px 12px 0;margin:20px 0}.call.warning{border-color:var(--amber);background:#30271f}.diagram{display:flex;align-items:stretch;gap:9px;margin:25px 0;flex-wrap:wrap}.pill{background:#17394b;border:1px solid var(--line);padding:15px 13px;border-radius:10px;flex:1;text-align:center;min-width:125px}.arrow{align-self:center;color:var(--teal)}.footnav{display:flex;justify-content:space-between;align-items:center;margin-top:26px;padding:15px 0;border-top:1px solid var(--line);gap:12px}.progress{height:4px;background:#1f3947;position:fixed;bottom:0;left:256px;right:0}.progress div{background:var(--teal);height:100%;transition:width .25s}.capsule{display:inline-block;padding:6px 11px;border:1px solid #3a655e;background:#123a39;color:var(--teal);border-radius:40px;font-size:11px;font-weight:700;letter-spacing:.5px}.micro{font-size:12px;color:var(--muted)}.legend{display:flex;flex-wrap:wrap;gap:15px;font-size:12px;color:var(--muted)}.dot{display:inline-block;width:10px;height:10px;border-radius:3px;background:var(--teal);margin-right:6px}.dot.alt{background:var(--amber)}.reach{display:flex;align-items:center;justify-content:center;min-height:300px;background:radial-gradient(circle at center,#164051,transparent 70%);flex-direction:column}.reach strong{font-size:clamp(80px,13vw,160px);line-height:1;color:var(--teal);letter-spacing:-7px}.stack{height:32px;width:100%;border-radius:7px;overflow:hidden;display:flex;background:#2e4250;margin:20px 0}.stack>span:nth-child(1){background:var(--teal)}.stack>span:nth-child(2){background:#6ca5b6}.stack>span:nth-child(3){background:var(--lime)}.toggle{display:flex;gap:7px;flex-wrap:wrap;margin:16px 0}.toggle button{cursor:pointer;background:#193447;border:1px solid var(--line);color:white;border-radius:30px;padding:8px 13px;font-size:12px}.toggle button.sel{background:var(--teal);color:#09222b}.focusline{display:grid;grid-template-columns:160px 1fr;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}.focusline b{color:var(--teal)}.quote{font-size:clamp(24px,3.4vw,42px);line-height:1.25;letter-spacing:-.8px;font-weight:650;max-width:960px;padding:20px 0}.warn{font-size:12px;color:var(--amber)}@media(max-width:950px){.layout{display:block}.rail{position:relative;height:auto;padding:14px 17px;gap:9px}.rail h2{font-size:17px}.nav{display:flex;overflow-x:auto;white-space:nowrap}.nav button{min-width:max-content}.railfoot{display:none}.progress{left:0}main{padding:28px 18px}.stats{grid-template-columns:repeat(2,1fr)}.timeline{grid-template-columns:1fr}.grid2{grid-template-columns:1fr}.barrow{grid-template-columns:120px 1fr 49px}.hero{letter-spacing:-1.4px}}@media(max-width:520px){.stats{grid-template-columns:1fr 1fr}.tile{padding:13px}.tile b{font-size:26px}.barrow{grid-template-columns:95px 1fr 45px;font-size:11px}.topline{align-items:start;flex-wrap:wrap}}@media print{.rail,.tools,.footnav,.progress{display:none!important}main{padding:0}section,section.active{display:block!important;page-break-after:always;min-height:90vh}.tile,.panel,.chartbox{break-inside:avoid}body{background:white;color:#112735}.lead,.copy,.muted,td{color:#294253}.tile,.panel,.chartbox{background:white;border:1px solid #b7cbd4}.eyebrow{color:#146c65}}
-</style></head><body><noscript><div style="padding:1rem;background:#183b4c;color:white">Activa JavaScript para utilizar la navegación. La primera diapositiva permanece visible.</div></noscript><div class="layout"><aside class="rail"><div class="brand">PROYECTO FINAL INTEGRADOR · ML I</div><h2>ESTIMAR<br>PARA ANTICIPAR</h2><div class="capsule">10 minutos · 10 momentos</div><nav id="nav" class="nav" aria-label="Secciones"></nav><div class="railfoot">Modelos supervisados · CRISP-DM<br>Evaluación retrospectiva 2024–2026</div></aside><main><div class="topline"><div class="eyebrow" id="sectionTag">01 / 10 · Planteamiento</div><div class="tools"><button type="button" id="print">PDF / imprimir</button><button type="button" id="fullscreen">Pantalla completa</button></div></div>
-<section class="active"><span class="capsule">PROBLEMA Y DECISIÓN</span><div class="hero">Una cama no es solo un recurso.<br><em>Es tiempo para el siguiente paciente.</em></div><p class="lead">¿Podemos estimar cuántos días adicionales permanecerá hospitalizado un paciente y apoyar decisiones de continuidad y disponibilidad de camas?</p><div class="stats"><div class="tile"><b>37.053</b><small>Episodios históricos</small></div><div class="tile"><b>2024–26</b><small>Horizonte de datos</small></div><div class="tile"><b>8</b><small>Variables predictoras</small></div><div class="tile"><b class="teal">1</b><small>Objetivo: días restantes</small></div></div><div class="call">Decisión: priorizar revisión de casos y planear capacidad. La predicción <strong>no reemplaza el criterio clínico</strong> ni determina el alta.</div><p class="micro">CRISP-DM: comprensión del negocio. Usuario principal: operaciones clínicas, gestión de camas y equipos asistenciales.</p></section>
-<section><span class="capsule">DATOS Y REPRESENTATIVIDAD</span><h1>El proyecto parte de la estancia observada, no de datos simulados.</h1><p class="lead">Boletín de Gestión Clínica + CMBD + referencias de GRD y severidad. Una hospitalización equivale a un episodio.</p><div class="timeline"><div class="step"><b>14.096</b><span>2024 · referencias locales de estancia</span></div><div class="step"><b>13.855</b><span>2025 · entrenamiento y validación cruzada</span></div><div class="step"><b>9.102</b><span>2026 · evaluación retrospectiva temporal</span></div></div><div class="grid2"><div class="panel"><h3>Calidad verificada</h3><ul><li>945 episodios de estancia cero, válidos por egreso el mismo día.</li><li>Sin estancias negativas, nulas ni no numéricas en la cohorte evaluada.</li><li>Cruce con CMBD: 99,99 %.</li><li>Edad con faltantes mínimos; referencia P50 puede faltar y se trata dentro del Pipeline.</li></ul></div><div class="panel"><h3>Distribución asimétrica</h3><div class="stats" style="grid-template-columns:repeat(2,1fr)"><div class="tile"><b>5 días</b><small>Mediana 2024–25</small></div><div class="tile"><b>8,63</b><small>Media en días</small></div><div class="tile"><b>19</b><small>Percentil 90</small></div><div class="tile"><b>466</b><small>Máximo histórico</small></div></div></div></div><p class="micro">La cola derecha hace necesario analizar no solo el MAE, sino los errores de larga estancia. Los datos representan episodios observados, no todas las condiciones futuras.</p></section>
-<section><span class="capsule">DISEÑO EXPERIMENTAL</span><h1>El orden de los datos es parte de la validez del resultado.</h1><div class="diagram"><div class="pill"><strong>2024</strong><br>Construir P50 histórico</div><span class="arrow">→</span><div class="pill"><strong>2025</strong><br>Entrenar y seleccionar</div><span class="arrow">→</span><div class="pill"><strong>2026</strong><br>Evaluación temporal</div></div><div class="grid2"><div class="panel"><h3>42.657 observaciones de entrenamiento</h3><p>Snapshots de 13.855 episodios, en días 0, 1, 3, 7, 14, 30 y 60, si el paciente continuaba hospitalizado.</p><h3>28.829 observaciones de evaluación</h3><p>Derivadas de 9.102 episodios de 2026.</p></div><div class="panel"><h3>Control de fuga</h3><p><strong>GroupKFold por episodio</strong>: ningún snapshot de una misma hospitalización pasa simultáneamente a entrenamiento y validación.</p><p>Imputación, codificación categórica y escalado se ajustan dentro del Pipeline, en cada fold.</p></div></div><div class="call warning">Limitación crítica: el GRD registrado al egreso puede incluir información posterior al día simulado. La evaluación es retrospectiva; una prueba prospectiva requiere observar GRD provisionales en tiempo real.</div></section>
-<section><span class="capsule">INGENIERÍA DE CARACTERÍSTICAS</span><h1>Ocho variables; un solo desenlace.</h1><p class="lead">Predecimos días <strong>restantes</strong>. La estancia total proyectada es días transcurridos + días restantes estimados.</p><div class="grid2"><div class="panel"><h3>Características clínicas y demográficas</h3><table><tr><th>Variable</th><th>Qué representa</th></tr><tr><td>Edad</td><td>Años cumplidos del paciente</td></tr><tr><td>Sexo</td><td>Categoría demográfica registrada</td></tr><tr><td>GRD</td><td>Grupo diagnóstico relacionado</td></tr><tr><td>Severidad</td><td>Nivel de complejidad clínica</td></tr></table></div><div class="panel"><h3>Tiempo y referencias</h3><table><tr><th>Variable</th><th>Qué representa</th></tr><tr><td>Día actual</td><td>Días transcurridos al corte</td></tr><tr><td>Peso GRD</td><td>Complejidad relativa</td></tr><tr><td>Norma</td><td>Referencia de estancia del grupo</td></tr><tr><td>P50 histórico</td><td>Mediana observada en 2024 para GRD-severidad</td></tr></table></div></div><div class="call">Correlación no significa identidad: Norma y P50 se correlacionan alrededor de 0,88; Peso y Norma alrededor de 0,85. Se realiza un experimento de ablación para evaluar si cada variable añade valor.</div></section>
-<section><span class="capsule">COMPARACIÓN DE ALGORITMOS</span><h1>La elección surge de la evidencia, no de la complejidad.</h1><p class="lead">Regresión lineal, Ridge, árboles, Random Forest, red neuronal MLP y boosting, sobre los mismos folds.</p><div class="chartbox"><h3>MAE promedio de validación cruzada · 2025 (menor es mejor)</h3><div id="bars" class="bars"></div><p class="micro">Los algoritmos se eligen por MAE en validación cruzada, no por las cifras de 2026.</p></div><div class="call"><strong>Random Forest: 5,98 días.</strong> Supera estrechamente a XGBoost (5,99) e HistGradientBoosting (6,01). La diferencia es pequeña y no prueba superioridad estadística.</div></section>
-<section><span class="capsule">MÉTRICAS E INCERTIDUMBRE</span><h1>¿Qué significa realmente “funciona”?</h1><div class="stats"><div class="tile"><b class="teal">6,19</b><small>MAE del modelo · test 2026 (días)</small></div><div class="tile"><b>12,10</b><small>RMSE · penaliza errores grandes</small></div><div class="tile"><b>0,241</b><small>R² · capacidad explicativa moderada</small></div><div class="tile"><b>46,8%</b><small>Predicciones dentro de ±3 días</small></div></div><div class="grid2"><div class="panel"><h3>Modelo versus referencia P50</h3><table><tr><th>Indicador</th><th>Random Forest</th><th>P50 histórica</th></tr><tr><td>MAE</td><td>6,19 d</td><td>6,62 d</td></tr><tr><td>RMSE</td><td>12,10 d</td><td>13,24 d</td></tr><tr><td>R²</td><td>0,241</td><td>0,092</td></tr><tr><td>Dentro de ±3 días</td><td>46,8 %</td><td>53,5 %</td></tr></table></div><div class="panel"><h3>¿Sobreajuste?</h3><p>Random Forest: MAE de entrenamiento (mismo fold) <strong>4,88 d</strong> frente a CV <strong>5,98 d</strong>. Existe una brecha de 1,10 días.</p><p>El árbol sin poda: entrenamiento 0,08 d y CV 7,69 d; ejemplo contundente de memorización.</p><p>Desviación estándar del MAE CV Random Forest: <strong>0,158 d</strong>.</p></div></div><div class="call warning"><strong>Resultado condicionado por la unidad de análisis:</strong> ponderando cada episodio por igual, el MAE modelo fue 4,779 d y el P50 histórico 4,692 d. El beneficio en MAE por snapshot no se replica bajo esa ponderación.</div></section>
-<section><span class="capsule">ERRORES, SESGO Y JUSTICIA</span><h1>Un promedio puede ocultar pacientes difíciles.</h1><div class="grid2"><div class="panel"><h3>MAE por sexo · test 2026</h3><div id="sexBars" class="bars"></div><p class="micro">Diferencias descriptivas; no prueban discriminación causal.</p></div><div class="panel"><h3>Errores en estancia prolongada</h3><div class="stats" style="grid-template-columns:1fr 1fr"><div class="tile"><b>28,66 d</b><small>MAE si días restantes reales &gt;28</small></div><div class="tile"><b>-23,98 d</b><small>Sesgo en ese grupo</small></div></div><p>El modelo tiende a subestimar significativamente hospitalizaciones muy largas.</p></div></div><div class="call warning"><strong>Riesgo de decisión:</strong> usar la estimación como fecha de alta en pacientes complejos podría producir falsas expectativas. Debe funcionar como una señal de seguimiento, no como instrucción de egreso.</div><h3>Riesgo metodológico adicional</h3><p class="copy">El test de 2026 ya fue examinado durante el desarrollo. Se requiere una cohorte futura intacta para confirmar definitivamente el desempeño.</p></section>
-<section><span class="capsule">CORTE OPERATIVO · 19 OCT 2026</span><h1>Del experimento al seguimiento operacional.</h1><div class="reach"><span class="eyebrow">Estimaciones disponibles</span><strong>132</strong><span class="lead">de 228 hospitalizaciones del corte · cobertura 57,9 %</span></div><div class="stats"><div class="tile"><b class="teal">6,8 d</b><small>Mediana de días restantes</small></div><div class="tile"><b>5,1 d</b><small>P25 días restantes</small></div><div class="tile"><b>11,1 d</b><small>P75 días restantes</small></div><div class="tile"><b>19,3 d</b><small>Mediana de estancia total proyectada</small></div></div><div class="chartbox"><h3>Distribución de las 132 estimaciones</h3><div class="stack" id="stack"></div><div id="dist" class="legend"></div><p class="micro">La suma de los intervalos es 132. Se muestran agregados; no se presentan registros individuales.</p></div><div class="call">Aplicación: el corte consume censo, cargos y referencias operativas para aplicar el regresor seleccionado. No hay MAE de esta cohorte hasta conocer las fechas reales de egreso.</div></section>
-<section><span class="capsule">VALOR ESTRATÉGICO</span><h1>La predicción no ahorra camas: ayuda a tomar decisiones que podrían hacerlo.</h1><div class="timeline"><div class="step"><b>1. Identificar</b><span>Casos con alta incertidumbre, estancias prolongadas o necesidad de revisión.</span></div><div class="step"><b>2. Coordinar</b><span>Operaciones, enfermería, servicio tratante y gestión de camas.</span></div><div class="step"><b>3. Medir</b><span>Cobertura, error prospectivo, oportunidad real y cambios observados.</span></div></div><div class="grid2"><div class="panel"><h3>Condiciones mínimas</h3><ul><li>Calidad de GRD provisional y datos actuales.</li><li>Rendimiento por servicio y subgrupos.</li><li>Señalización cuando la predicción no sea confiable.</li><li>Control de deriva y reentrenamiento.</li></ul></div><div class="panel"><h3>Indicadores de un piloto</h3><ul><li>MAE cuando el paciente efectivamente egrese.</li><li>Porcentaje de pacientes con estimación válida.</li><li>Uso del tablero en decisiones de egreso.</li><li>Comparación de tiempos y disponibilidad con práctica previa.</li></ul></div></div><p class="micro">El proyecto demuestra capacidad de estimación retrospectiva; no demuestra causalmente reducción de estancia, costos ni días-cama liberados.</p></section>
-<section><span class="capsule">CONCLUSIÓN</span><h1>Un modelo útil es uno que sabemos cuándo usar — y cuándo no.</h1><div class="quote">“Pasamos de una referencia estática por GRD a un modelo que incorpora edad, sexo, severidad y momento de hospitalización; ganamos información, pero también identificamos límites que deben gobernar su uso.”</div><div class="stats"><div class="tile"><b class="lime">7+</b><small>Familias/alternativas comparadas</small></div><div class="tile"><b>5,98 d</b><small>MAE CV del seleccionado</small></div><div class="tile"><b>6,19 d</b><small>MAE temporal 2026</small></div><div class="tile"><b>132</b><small>Casos con estimación en el corte</small></div></div><div class="call">Recomendación: un piloto supervisado, con medición prospectiva del error y registro de decisiones operativas. No automatizar decisiones clínicas a partir de la predicción.</div><p class="micro">Repositorio: código, diccionario, trazabilidad metodológica y resultados agregados. El uso de IA se documenta en la declaración de herramientas. Los modelos entrenados y fuentes identificables no forman parte del sitio público.</p></section>
-<div class="footnav"><span class="micro" id="counter">01 de 10</span><div><button class="next" id="prev" type="button">← Anterior</button> <button class="next" id="next" type="button">Siguiente →</button></div></div></main></div><div class="progress"><div id="progress"></div></div><script>
+<!doctype html>
+<html lang="es"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<meta name="robots" content="noindex,nofollow,noarchive"/>
+<meta name="description" content="Proyecto Final Integrador de Machine Learning I: análisis de estancia hospitalaria, modelos, evaluación y toma de decisiones."/>
+<title>Estimación de estancia | Proyecto Final Integrador</title>
+<link rel="stylesheet" href="assets/site.css"/>
+</head><body>
+<div class="shell">
+<aside class="sidebar"><div class="logo">PROYECTO FINAL · MACHINE LEARNING I<strong>Estimar la<br>estancia hospitalaria</strong></div>
+<div class="smallhead">Recorrido académico · 10 momentos</div>
+<nav class="nav" id="menu" aria-label="Navegación de la exposición">
+<button type="button" class="active"><span>01</span>Problema y decisión</button>
+<button type="button"><span>02</span>El Boletín y las fuentes</button>
+<button type="button"><span>03</span>Exploración de datos</button>
+<button type="button"><span>04</span>Variables y preparación</button>
+<button type="button"><span>05</span>Diseño experimental</button>
+<button type="button"><span>06</span>Comparación de modelos</button>
+<button type="button"><span>07</span>¿Dónde se equivoca?</button>
+<button type="button"><span>08</span>Sesgo y confiabilidad</button>
+<button type="button"><span>09</span>Tablero y simulación</button>
+<button type="button"><span>10</span>Valor, roles y decisión</button>
+</nav><div class="sidefoot">Evidencia retrospectiva 2024–2026<br>Presentación interactiva · Uso académico</div></aside>
+<div class="workspace">
+<header class="top"><div class="marker" id="sectionIndicator">01 / 10 · Problema y decisión</div><div class="controlbar"><button type="button" id="notesToggle" title="Mostrar guía para la defensa">Guion</button></div></header>
+<main>
+<section class="slide current" data-title="Problema y decisión" data-note="Presentar el problema operativo primero: la estancia es incierta y afecta planeación. La predicción es una señal para decisiones, no una orden de alta. Explicar diferencia entre error predictivo y efecto del negocio.">
+<div class="slidehead"><div class="eyebrow">CRISP-DM 01 · Comprensión del negocio</div><h1>¿Cuánto tiempo permanecerá hospitalizado un paciente?</h1><p>De la estancia observada al apoyo predictivo para seguimiento clínico y gestión de capacidad.</p></div>
+<div class="content">
+<div class="grid two">
+<div><p class="kicker">El problema</p><p class="lead">La estancia de un paciente no se conoce al ingreso. Sin una estimación, la coordinación de egresos y disponibilidad de camas es principalmente reactiva.</p><div class="band"><strong>Pregunta de investigación:</strong> ¿podemos estimar los días restantes de hospitalización combinando variables demográficas, GRD, severidad y referencias históricas?</div></div>
+<div class="panel deep"><div class="kicker" style="color:#99e9dd">Decisión apoyada</div><h3 style="font-size:26px">Anticipar, priorizar y coordinar.</h3><p>Quién decide: equipos clínicos, gestión de camas y operaciones. A quién afecta: pacientes que esperan continuidad asistencial y equipos que organizan la capacidad.</p><p style="margin-top:24px"><strong>Regla:</strong> nunca convertir una predicción estadística en una orden de alta.</p></div>
+</div>
+<div class="grid four spaced">
+<div class="panel"><div class="big">37.053</div><div class="meta">Episodios históricos</div></div>
+<div class="panel"><div class="big">8</div><div class="meta">Variables predictoras</div></div>
+<div class="panel"><div class="big">1</div><div class="meta">Objetivo: días restantes</div></div>
+<div class="panel"><div class="big teal">132</div><div class="meta">Estimaciones en el corte operativo</div></div>
+</div>
+<div class="divider"></div>
+<div class="grid two"><div><h3 class="sectionname">Éxito técnico ≠ éxito del negocio</h3><p class="textsmall"><strong>Técnico:</strong> disminuir MAE y RMSE respecto a líneas base, controlar variabilidad y errores por grupos.</p></div><div><h3 class="sectionname">Qué demostraría valor organizacional</h3><p class="textsmall"><strong>Operativo:</strong> mejor oportunidad de coordinación y planeación, medida en un piloto con decisiones y egresos observados. Ese impacto aún no se ha estimado causalmente.</p></div></div>
+<div class="source">Fuente: resultados del cuaderno PFI y formulación de decisión operativa del proyecto.</div></div></section>
 
-const TITLES=["Problema y decisión","Contexto y datos","Preparación","Variables del modelo","Algoritmos comparados","Validación y métricas","Sesgo y límites","Corte de hospitalización","Visión estratégica","Conclusión y defensa"],D={"cv":[["Random Forest",5.976],["XGBoost",5.991],["HistGradientBoosting",6.008],["Ridge L2",6.071],["Regresión lineal",6.095],["Árbol ajustado",6.095],["Referencia P50",6.233],["Red neuronal MLP",6.292],["Mediana constante",6.925],["Árbol sin poda",7.686]],"test":{"mae":6.1924,"rmse":12.103648,"mse":146.498299,"r2":0.241275,"ref_mae":6.616064,"ref_rmse":13.23955,"tol3":46.813972,"ref_tol3":53.484339},"corte":{"estimables":132,"total":228,"med_dias":12.3,"med_rest":6.8,"p25":5.1,"p75":11.1,"med_total":19.3,"distrib":[["0–5 días",31],["5–10 días",52],["10+ días",49]]},"cohortes":[["2024 · referencias",14096],["2025 · entrenamiento/CV",13855],["2026 · evaluación",9102]],"grupos":[["Femenino",5.973],["Masculino",6.372]],"curve":[[30,4.42,5.91],[60,4.56,5.7],[100,4.88,5.98]]};
-(function () {
-  "use strict";
-  const byId = (id) => document.getElementById(id);
-  const nav = byId("nav");
-  const sections = Array.from(document.querySelectorAll("main section"));
-  let pos = 0;
-  function go(index) {
-    const next = Math.max(0, Math.min(TITLES.length - 1, Number(index) || 0));
-    pos = next;
-    sections.forEach((section, i) => section.classList.toggle("active", i === next));
-    Array.from(nav.querySelectorAll("button")).forEach((button, i) => {
-      button.classList.toggle("on", i === next);
-      button.setAttribute("aria-current", i === next ? "step" : "false");
-    });
-    byId("sectionTag").textContent = String(next + 1).padStart(2, "0") + " / " + TITLES.length + " · " + TITLES[next];
-    byId("counter").textContent = String(next + 1).padStart(2, "0") + " de " + TITLES.length;
-    byId("progress").style.width = (100 * (next + 1) / TITLES.length) + "%";
-    if (history && history.replaceState) history.replaceState(null, "", "#" + (next + 1));
-    if (window.scrollTo) window.scrollTo(0, 0);
-  }
-  TITLES.forEach((title, i) => {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.dataset.i = String(i);
-    const number = document.createElement("span");
-    number.className = "num";
-    number.textContent = String(i + 1).padStart(2, "0");
-    button.appendChild(number);
-    button.appendChild(document.createTextNode(title));
-    button.addEventListener("click", () => go(i));
-    nav.appendChild(button);
-  });
-  byId("prev").addEventListener("click", () => go(pos - 1));
-  byId("next").addEventListener("click", () => go(pos + 1));
-  byId("print").addEventListener("click", () => window.print());
-  byId("fullscreen").addEventListener("click", () => {
-    if (!document.fullscreenElement) {
-      if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen();
-    } else if (document.exitFullscreen) document.exitFullscreen();
-  });
-  document.addEventListener("keydown", (event) => {
-    const active = document.activeElement;
-    const inputMode = active && ["INPUT", "TEXTAREA", "SELECT"].includes(active.tagName);
-    if (inputMode) return;
-    if (event.key === "ArrowRight" || event.key === "PageDown") {
-      event.preventDefault();
-      go(pos + 1);
-    } else if (event.key === "ArrowLeft" || event.key === "PageUp") {
-      event.preventDefault();
-      go(pos - 1);
-    }
-  });
-  function barRows(containerId, entries, maxValue, highlight) {
-    const target = byId(containerId);
-    if (!target) return;
-    target.replaceChildren();
-    entries.forEach(([name, value]) => {
-      const row = document.createElement("div");
-      row.className = "barrow" + (name === highlight ? " highlight" : "");
-      const label = document.createElement("span");
-      label.textContent = name;
-      const track = document.createElement("div");
-      track.className = "track";
-      const fill = document.createElement("div");
-      fill.className = "fill";
-      fill.style.width = Math.min(100, 100 * value / maxValue) + "%";
-      track.appendChild(fill);
-      const number = document.createElement("b");
-      number.textContent = value.toFixed(2);
-      row.appendChild(label);
-      row.appendChild(track);
-      row.appendChild(number);
-      target.appendChild(row);
-    });
-  }
-  function distribution() {
-    const total = D.corte.distrib.reduce((sum, item) => sum + item[1], 0);
-    if (total !== D.corte.estimables) throw new Error("Los rangos del corte no suman las estimaciones.");
-    const stack = byId("stack");
-    const legend = byId("dist");
-    const colors = ["#68e0cb", "#6ca5b6", "#d7f28c"];
-    stack.replaceChildren();
-    legend.replaceChildren();
-    D.corte.distrib.forEach(([name, count], i) => {
-      const segment = document.createElement("span");
-      segment.style.width = 100 * count / total + "%";
-      stack.appendChild(segment);
-      const label = document.createElement("span");
-      const dot = document.createElement("i");
-      dot.className = "dot";
-      dot.style.background = colors[i % colors.length];
-      label.appendChild(dot);
-      label.appendChild(document.createTextNode(name + ": " + count + " (" + (100 * count / total).toFixed(1) + " %)"));
-      legend.appendChild(label);
-    });
-  }
-  barRows("bars", D.cv, 8, "Random Forest");
-  barRows("sexBars", D.grupos, 7.5, "");
-  distribution();
-  const hash = parseInt(window.location.hash.replace("#", ""), 10);
-  go(Number.isFinite(hash) ? hash - 1 : 0);
-})();
-</script></body></html>
+<section class="slide" data-title="El Boletín y las fuentes" data-note="Explicar el boletín, el episodio y la diferencia entre fuentes históricas y fuentes del corte. Aclarar que GRD resume características clínicas y que el objetivo del curso es evaluar modelos de regresión, no reconstruir GRD.">
+<div class="slidehead"><div class="eyebrow">CRISP-DM 02 · Comprensión de datos</div><h1>El Boletín: la base para aprender de las hospitalizaciones</h1><p>Integramos información histórico-administrativa con variables clínicas y demográficas.</p></div>
+<div class="content">
+<div class="grid two">
+<div class="panel"><div class="kicker">Fuente principal</div><h3>Boletín de Gestión Clínica</h3><p>Consolida <strong>episodios de hospitalización</strong> y resultados observados: fecha de ingreso y egreso, estancia real, referencias de estancia, agrupación clínica y otras variables para análisis.</p><div class="big">151 <span style="font-size:15px;font-weight:700">campos en el enriquecido</span></div><div class="meta">No todos ingresan al modelo. Se eligen ocho predictores disponibles o reconstruibles al corte.</div></div>
+<div class="panel"><div class="kicker">Fuente complementaria</div><h3>CMBD · Conjunto Mínimo Básico de Datos</h3><p>Se utiliza para completar <strong>edad y sexo</strong> mediante el episodio de hospitalización. Las llaves se emplean para integrar, no se incluyen como variables de predicción.</p><div class="big">99,99 %</div><div class="meta">Concordancia del cruce histórico–CMBD en la ejecución.</div></div>
+</div>
+<div class="flow spaced">
+<div class="node"><strong>Boletín</strong><small>Episodios, estancia real y referencias</small></div><div class="arrow">→</div>
+<div class="node"><strong>CMBD</strong><small>Demografía: edad y sexo</small></div><div class="arrow">→</div>
+<div class="node"><strong>GRD + severidad</strong><small>Agrupación y complejidad</small></div><div class="arrow">→</div>
+<div class="node"><strong>Dataset analítico</strong><small>Ocho variables, etiqueta en días</small></div>
+</div>
+<div class="grid two spaced">
+<div class="panel tint"><h3>¿Qué es un GRD?</h3><p>Un <strong>Grupo Relacionado con el Diagnóstico</strong> agrupa episodios clínicamente comparables. Su severidad, peso y norma aportan referencias de complejidad y estancia esperada; no reemplazan la historia clínica.</p></div>
+<div class="panel tint"><h3>¿De dónde sale el tablero del día?</h3><p>El censo ampliado y los cargos permiten preparar el corte de pacientes activos y construir una agrupación provisional. El regresor estima días restantes para los casos elegibles.</p><p class="meta">La reconstrucción detallada de GRD es parte del procesamiento, no el foco de la investigación de ML.</p></div>
+</div>
+<div class="source">Unidad observacional: episodio hospitalario; para el entrenamiento, snapshots de un episodio en distintos días de evolución.</div>
+</div></section>
+
+<section class="slide" data-title="Exploración de datos" data-note="La estancia tiene una fuerte asimetría a la derecha; la media 8,63 y la mediana 5 no son equivalentes. Interpretar percentiles: 75 % permanecen hasta 10 días, 90 % hasta 19, 95 % hasta 28. Recalcar extremos reales hasta 466 días.">
+<div class="slidehead"><div class="eyebrow">CRISP-DM 02 · Análisis exploratorio</div><h1>La estancia no sigue una distribución simétrica</h1><p>Predominan hospitalizaciones cortas, pero una cola de casos muy largos aumenta el error esperado.</p></div>
+<div class="content">
+<div class="grid four">
+<div class="panel"><div class="big">5 días</div><div class="meta">Mediana · 2024–2025</div></div>
+<div class="panel"><div class="big">8,63 días</div><div class="meta">Media · 2024–2025</div></div>
+<div class="panel"><div class="big">28 días</div><div class="meta">Percentil 95</div></div>
+<div class="panel"><div class="big">466 días</div><div class="meta">Máximo observado</div></div>
+</div>
+<div class="panel spaced">
+<h3>Distribución acumulada por percentiles de estancia real</h3>
+<p class="textsmall">Cada bloque representa una fracción de los <strong>27.951 episodios</strong> de 2024–2025. Los límites indican el porcentaje de hospitalizaciones que finaliza antes de cada duración.</p>
+<div class="quant" id="quantile" aria-label="Distribución acumulada por percentiles"></div>
+<div class="numbers spaced">
+<span>P25 <b>3 días</b></span><span>P50 <b>5 días</b></span><span>P75 <b>10 días</b></span><span>P90 <b>19 días</b></span><span>P95 <b>28 días</b></span><span>Máximo <b>466 días</b></span>
+</div>
+</div>
+<div class="grid two spaced">
+<div class="panel"><h3>¿Qué encontramos?</h3><p><strong>Asimetría: 7,24</strong>. Las estancias extremas desplazan la media y elevan RMSE.</p><p><strong>2.473 episodios</strong> superan el umbral de valores atípicos por IQR (20,5 días), sin que eso signifique que deban eliminarse.</p></div>
+<div class="panel"><h3>¿Por qué importa para el modelo?</h3><p>Predecir la media sirve poco si el error aumenta mucho en pacientes prolongados. La evaluación se segmenta por <strong>≤3, 4–7, 8–14, 15–28 y &gt;28 días restantes reales</strong>.</p><p class="meta">El modelo debe reconocer la incertidumbre y no ocultarla bajo una única métrica global.</p></div>
+</div>
+<div class="band gold">Una distribución sesgada obliga a reportar tanto el error promedio como su comportamiento en las colas. Los episodios del mismo día se tratan como estancia válida de 0 días.</div>
+</div></section>
+
+<section class="slide" data-title="Variables y preparación" data-note="Enumerar las ocho variables de forma inequívoca, su tipo y cómo se codifican. StandardScaler en modelos sensibles a escala, no necesario en árboles. Explicar que P50 proviene de 2024 y Norma es otra referencia correlacionada.">
+<div class="slidehead"><div class="eyebrow">CRISP-DM 03 · Ingeniería de características</div><h1>Ocho variables para estimar días restantes</h1><p>Información demográfica, tiempo transcurrido y referencias clínicas; desenlace continuo de regresión.</p></div>
+<div class="content">
+<div class="tablewrap">
+<table><thead><tr><th>Predictor</th><th>Tipo</th><th>Qué representa</th><th>Transformación</th></tr></thead><tbody>
+<tr><td><strong>DIA_ACTUAL</strong></td><td>Numérico</td><td>Días transcurridos desde ingreso</td><td>Escalado si aplica</td></tr>
+<tr><td><strong>EDAD</strong></td><td>Numérico</td><td>Edad del paciente</td><td>Imputación/escala en Pipeline</td></tr>
+<tr><td><strong>SEXO</strong></td><td>Categórico</td><td>Sexo reportado</td><td>OneHotEncoder</td></tr>
+<tr><td><strong>GRD</strong></td><td>Categórico</td><td>Grupo relacionado con diagnóstico</td><td>OneHotEncoder</td></tr>
+<tr><td><strong>SEVERIDAD</strong></td><td>Ordinal</td><td>Nivel de severidad GRD</td><td>Imputación y escala si aplica</td></tr>
+<tr><td><strong>PESO_MODELO</strong></td><td>Numérico</td><td>Peso relativo del GRD</td><td>Imputación y escala si aplica</td></tr>
+<tr><td><strong>NORMA_MODELO</strong></td><td>Numérico</td><td>Referencia normativa de estancia</td><td>Imputación y escala si aplica</td></tr>
+<tr><td><strong>P50_REF</strong></td><td>Numérico</td><td>Mediana histórica por GRD/severidad</td><td>Calculada sobre 2024; imputación</td></tr>
+</tbody></table>
+<div class="tablefoot">Variable objetivo: <strong>RESTANTE_REAL = estancia final observada − DIA_ACTUAL</strong>. El resultado final del episodio se utiliza como etiqueta retrospectiva, nunca como predictor.</div></div>
+<div class="grid two spaced"><div class="panel tint"><h3>Escalado y codificación</h3><p>Regresión lineal, Ridge y red neuronal requieren preprocesamiento consistente. Árboles y ensambles separan por umbrales; el escalado numérico no es requisito para ellos.</p></div><div class="panel tint"><h3>Redundancia controlada</h3><p>Correlación Pearson: <strong>Norma–P50 = 0,88</strong> y <strong>Peso–Norma = 0,85</strong>. No se descartan automáticamente: se contrastó su aporte mediante ablación con los mismos folds.</p></div></div>
+<div class="band">Excluimos identificadores, duración final como predictor y transformaciones redundantes como IEMA, brechas y razones relacionadas con estancia.</div>
+</div></section>
+
+<section class="slide" data-title="Diseño experimental" data-note="Probar que se evitó fuga por paciente con GroupKFold. 2024 fija las referencias, 2025 entrenamiento, 2026 prueba; aclarar que el test 2026 fue revisado en iteraciones anteriores y no es un periodo completamente intacto para la versión final.">
+<div class="slidehead"><div class="eyebrow">CRISP-DM 03–04 · Validación sin fuga</div><h1>Partición temporal y validación cruzada por episodio</h1><p>La preparación se ajusta dentro de cada fold; la elección de modelo usa 2025, no el test de 2026.</p></div>
+<div class="content">
+<div class="flow">
+<div class="node"><div class="kicker">2024 · Referencias</div><strong>14.096 episodios</strong><small>Construcción del P50 histórico por GRD y severidad</small></div><div class="arrow">→</div>
+<div class="node"><div class="kicker">2025 · Entrenamiento</div><strong>13.855 episodios</strong><small>42.657 snapshots · GroupKFold · elección por MAE</small></div><div class="arrow">→</div>
+<div class="node"><div class="kicker">2026 · Evaluación</div><strong>9.102 episodios</strong><small>28.829 snapshots · prueba temporal retrospectiva</small></div>
+</div>
+<div class="grid two spaced">
+<div class="panel"><h3>¿Qué es un snapshot?</h3><p>Un mismo episodio puede observarse en días <strong>0, 1, 3, 7, 14, 30 y 60</strong> si seguía hospitalizado. El objetivo cambia con el día observado.</p><div class="band" style="margin:12px 0">GroupKFold mantiene <strong>todos los snapshots de un episodio en el mismo fold</strong>, para no aprender de un paciente y evaluarlo a la vez.</div></div>
+<div class="panel"><h3>¿Qué nos pide el profesor?</h3><div class="tablewrap"><table><tbody><tr><td>Línea base</td><td>P50 histórica y mediana constante</td></tr><tr><td>Modelos</td><td>Familias lineales, árboles, ensambles y MLP</td></tr><tr><td>Preprocesamiento</td><td>Imputación y transformaciones dentro de Pipeline</td></tr><tr><td>Sobreajuste</td><td>MAE train vs CV, curva de aprendizaje</td></tr><tr><td>Prueba</td><td>Aplicación retrospectiva en 2026</td></tr></tbody></table></div></div>
+</div><div class="band gold">Límite declarado: el GRD final puede incorporar eventos posteriores al día simulado y las métricas de 2026 fueron inspeccionadas durante el desarrollo. Una cohorte futura no utilizada es indispensable para validación prospectiva independiente.</div>
+</div></section>
+
+<section class="slide" data-title="Comparación de modelos" data-note="En esta pantalla defender la elección por MAE CV 2025. No elegir por el test. Mostrar que Random Forest 5,976, XGBoost 5,991, Hist 6,008: empatan prácticamente. Contrastar árbol sin poda por sobreajuste. Luego usar pestaña de test 2026 donde solo se reporta el ganador y líneas base.">
+<div class="slidehead"><div class="eyebrow">CRISP-DM 04–05 · Modelos y métricas</div><h1>La comparación completa determina el algoritmo elegido</h1><p>Modelos con el mismo esquema de validación. Métrica principal: MAE en días; secundarias: RMSE, R² y estabilidad.</p></div>
+<div class="content">
+<div class="tabrow"><button class="selected" data-target="cvPanel" type="button">Entrenamiento y CV 2025</button><button data-target="testPanel" type="button">Prueba temporal 2026</button></div>
+<div id="cvPanel" class="model-tab"><div class="tablewrap"><table><thead><tr><th>Modelo</th><th>Familia</th><th>MAE Train*</th><th>MAE CV</th><th>Desv. MAE CV</th><th>RMSE CV</th><th>R² CV</th><th>Brecha MAE</th></tr></thead><tbody id="cvBody"></tbody></table><div class="tablefoot">* MAE train medido en las particiones de entrenamiento de CV. Una brecha positiva (CV−Train) indica pérdida de rendimiento al generalizar. No se calculan métricas de entrenamiento para líneas base.</div></div></div>
+<div id="testPanel" class="model-tab hide"><div class="tablewrap"><table><thead><tr><th>Modelo</th><th>Tipo</th><th>MAE (d)</th><th>MSE (d²)</th><th>RMSE (d)</th><th>R²</th><th>Dentro de ±3 d</th></tr></thead><tbody id="testBody"></tbody></table><div class="tablefoot">2026 evalúa el modelo seleccionado en 2025 frente a dos referencias. No es correcto presentarlo como prueba comparativa de todos los candidatos.</div></div></div>
+<div class="grid three spaced"><div class="panel tint"><div class="kicker">Seleccionado</div><div class="big teal">5,98 días</div><p>Random Forest · MAE CV 2025</p></div><div class="panel tint"><div class="kicker">Estabilidad</div><div class="big">±0,16</div><p>Desviación estándar entre folds</p></div><div class="panel tint"><div class="kicker">Test 2026</div><div class="big">6,19 días</div><p>MAE en evaluación retrospectiva</p></div></div>
+<div class="band">Random Forest supera por poco a XGBoost (5,99) e HistGradientBoosting (6,01) en MAE CV. <strong>Son diferencias pequeñas</strong>; la selección respeta el criterio declarado, no prueba que los demás algoritmos sean inferiores en cualquier contexto.</div>
+</div></section>
+
+<section class="slide" data-title="¿Dónde se equivoca?" data-note="Esta es la lectura crítica principal. El error aumenta muy significativamente en el grupo >28 días: MAE 28,66 y sesgo -23,98 (subestima). En los casos ≤3 y 4–7 días el error con Random Forest es mayor que P50. Justificar por qué 'menor MAE global' no implica mejor decisión para todos.">
+<div class="slidehead"><div class="eyebrow">CRISP-DM 05 · Error por segmentos</div><h1>El error se concentra en las estancias prolongadas</h1><p>La conclusión central no es solo “cuántos días se equivoca”, sino <strong>en qué casos</strong> y en qué dirección.</p></div>
+<div class="content">
+<div class="grid two">
+<div class="panel"><h3>MAE según días restantes reales · test 2026</h3><div id="errBars"></div><p class="boxnote">El grupo &gt;28 días registra un error más de nueve veces mayor que el grupo 4–7 días.</p></div>
+<div class="panel deep"><div class="kicker" style="color:#97ecd9">Hallazgo crítico</div><div class="big" style="color:#a7ecd9">28,66 días</div><p>MAE para casos con más de 28 días restantes reales.</p><div class="divider" style="background:#365764"></div><div class="big" style="color:#ffd19f">−23,98 días</div><p>Sesgo promedio. El modelo <strong>subestima</strong> los días restantes de estas hospitalizaciones prolongadas.</p></div>
+</div>
+<h3 class="sectionname spaced">Comparación de errores por intervalos</h3>
+<div class="tablewrap"><table><thead><tr><th>Días restantes reales</th><th>Snapshots</th><th>Episodios</th><th>MAE modelo</th><th>MAE referencia P50</th><th>Sesgo modelo</th><th>Dentro ±3 días</th></tr></thead><tbody id="errorTable"></tbody></table></div>
+<div class="grid two spaced"><div class="panel"><h3>¿Qué ocurre según el día del corte?</h3><div class="tablewrap"><table><thead><tr><th>Momento</th><th>Snapshots</th><th>MAE modelo</th><th>MAE P50</th></tr></thead><tbody id="dayTable"></tbody></table></div></div><div class="panel tint"><h3>Interpretación académica</h3><p>El modelo supera al P50 para estancias realmente largas, pero <strong>la magnitud del error sigue siendo elevada</strong>. Para estancias de ≤7 días la referencia histórica es más precisa.</p><p>Recomendación: usar bandas de incertidumbre y una advertencia de baja confiabilidad en casos prolongados.</p></div></div>
+</div></section>
+
+<section class="slide" data-title="Sesgo y confiabilidad" data-note="Explicar diferencia entre sesgo estadístico y discriminación. Comparaciones mujeres/hombres, severidad 1/2/3. Mostrar que las diferencias descriptivas no prueban discriminación. Sesgo de GRD final y estabilidad temporal. Recordar que el error medio por episodio no favorece al RF.">
+<div class="slidehead"><div class="eyebrow">CRISP-DM 05–06 · Equidad, incertidumbre y límites</div><h1>Una predicción promedio no describe a todas las poblaciones</h1><p>Auditamos el error por sexo y severidad, y contrastamos dos unidades de análisis: snapshots y episodios.</p></div>
+<div class="content">
+<div class="grid two">
+<div class="panel"><h3>Desempeño por sexo · test 2026</h3><div class="tablewrap"><table><thead><tr><th>Grupo</th><th>Episodios</th><th>MAE modelo</th><th>MAE P50</th></tr></thead><tbody id="genderTable"></tbody></table></div><p class="boxnote">La diferencia observada puede depender de la composición clínica; no demuestra discriminación por sexo.</p></div>
+<div class="panel"><h3>Desempeño por severidad</h3><div class="tablewrap"><table><thead><tr><th>Severidad</th><th>Snapshots</th><th>MAE modelo</th></tr></thead><tbody id="sevTable"></tbody></table></div><p class="boxnote">Mayor severidad coincide con mayor MAE; es necesario evaluar grupos de alto impacto por separado.</p></div>
+</div>
+<div class="grid two spaced">
+<div class="panel tint"><h3>Dos formas de contar el error</h3><div class="tablewrap"><table><thead><tr><th>Unidad</th><th>Random Forest</th><th>Referencia P50</th></tr></thead><tbody><tr><td>MAE por snapshot (2026)</td><td><strong>6,19 d</strong></td><td>6,62 d</td></tr><tr><td>MAE por episodio (igual peso)</td><td>4,779 d</td><td><strong>4,692 d</strong></td></tr></tbody></table></div><p class="textsmall">La conclusión cambia si cada episodio pesa igual. No hay una mejora uniforme para todos los pacientes.</p></div>
+<div class="panel"><h3>Condiciones que limitan su uso</h3><ul class="mini-list"><li>GRD final retrospectivo vs GRD provisional de pacientes activos.</li><li>Selección revisada en iteraciones sobre 2026.</li><li>Errores grandes cuando la estancia supera 28 días.</li><li>Falta una evaluación prospectiva con egresos futuros observados.</li></ul></div>
+</div>
+<div class="band gold">La justicia de un modelo no se demuestra solo con MAE por sexo: requiere grupos comparables, incertidumbre y revisión de consecuencias de la decisión.</div>
+</div></section>
+
+<section class="slide" data-title="Tablero y simulación" data-note="Demostrar valor tangible. El corte real tiene 132 estimaciones de 228 episodios. Presentar indicadores reales y distribución real, pero las 132 filas son sintéticas para enseñar el funcionamiento sin revelar registros individuales. La calculadora es una aproximación didáctica; NO la ejecución del Random Forest. El despliegue real requiere la aplicación local app_demo.py.">
+<div class="slidehead"><div class="eyebrow">CRISP-DM 06 · Aplicación del modelo</div><h1>Tablero de estancia · corte operativo</h1><p>El motor aplica el regresor seleccionado sobre los casos elegibles del censo ampliado y cargos.</p></div>
+<div class="content">
+<div class="grid four"><div class="panel"><div class="big teal">132</div><div class="meta">Casos con estimación</div></div><div class="panel"><div class="big">57,9 %</div><div class="meta">Cobertura de 228 episodios</div></div><div class="panel"><div class="big">6,8 d</div><div class="meta">Mediana de días restantes</div></div><div class="panel"><div class="big">19,3 d</div><div class="meta">Mediana de estancia total prevista</div></div></div>
+<div class="grid two spaced"><div class="panel tint"><h3>Distribución real de las 132 estimaciones</h3><div id="distBins"></div><p class="textsmall">Corte del 19 de octubre de 2026; indicadores agregados, sin MAE del corte todavía.</p></div><div class="panel"><h3>Listado de seguimiento · demostración</h3><p>La tabla de abajo recrea <strong>132 filas ilustrativas</strong> para mostrar cómo se usaría el tablero: filtros, prioridad y suma de estancia actual con días previstos.</p><div class="warning"><strong>Importante:</strong> son casos construidos para la interfaz, no predicciones individuales reales ni registros de pacientes. La distribución global reproduce los cinco rangos del corte verdadero.</div></div></div>
+<div class="censo-controls">
+<label class="form-field">Buscar caso o unidad<input id="censusSearch" type="search" placeholder="Ej. Caso 001"/></label>
+<label class="form-field">Unidad ilustrativa<select id="censusUnit"><option value="todos">Todas las unidades</option></select></label>
+<label class="form-field">Semáforo<select id="censusStatus"><option value="todos">Todas las categorías</option><option value="pronto">0–&lt;2 días</option><option value="cerca">2–&lt;5 días</option><option value="seguimiento">≥5 días</option></select></label>
+<div class="form-field"><span>Listado</span><strong id="censusCount">132 de 132 casos</strong></div>
+</div>
+<div class="tablewrap censo-table"><table><thead><tr><th><button type="button" class="toolbtn" data-sort="idx">Caso ↕</button></th><th>Unidad ilustrativa</th><th>Estancia actual (d)</th><th><button type="button" class="toolbtn" data-sort="remaining">Restantes (d) ↕</button></th><th><button type="button" class="toolbtn" data-sort="total">Total previsto (d) ↕</button></th><th>Señal operativa</th></tr></thead><tbody id="censusBody"></tbody></table></div>
+<div class="boxnote" id="censusSortInfo">Orden: caso</div>
+<div class="calc" id="calcSection">
+<div class="grid two"><div><h3>Calculadora interactiva de escenarios</h3><p class="textsmall">Explora cómo variables demográficas, referencia de grupo, severidad y día de evolución podrían influir en una estimación.</p></div><div class="panel tint"><div class="kicker">Simulación pedagógica</div><div class="meta">Utiliza una fórmula ilustrativa, <strong>no</strong> ejecuta el Random Forest entrenado. El servicio local de inferencia real se documenta en el repositorio.</div></div></div>
+<form id="calcForm"><div class="calc-grid">
+<label class="form-field">Grupo clínico ilustrativo<select id="calcGroup"><option value="medicina">Medicina</option><option value="cirugia">Cirugía</option><option value="cardio">Cardiología</option><option value="cuidados">Cuidados críticos</option></select></label>
+<label class="form-field">Severidad<select id="calcSev"><option value="1">1 · Baja</option><option value="2" selected>2 · Intermedia</option><option value="3">3 · Alta</option></select></label>
+<label class="form-field">Edad<input id="calcAge" type="number" value="55" min="0" max="110"/></label>
+<label class="form-field">Día actual<input id="calcDay" type="number" value="4" min="0" max="100"/></label>
+<label class="form-field">Sexo<select id="calcSex"><option value="F">Femenino</option><option value="M">Masculino</option></select></label>
+<div class="form-field"><span>Acción</span><button type="submit">Calcular escenario</button></div>
+<div class="panel tint" style="grid-column:span 2"><div class="kicker">Días restantes · escenario</div><div class="calc result" id="calcResult" style="border:0;padding:0;background:none">—</div><div id="calcDetail" class="meta"></div></div>
+</div></form></div>
+<div class="source">Semáforo orientativo de días restantes: verde &lt;2, ámbar 2–&lt;5, azul ≥5. No es una clasificación de riesgo clínico ni reemplaza la decisión profesional.</div>
+</div></section>
+
+<section class="slide" data-title="Valor, roles y decisión" data-note="Cerrar integrando resultados técnicos y decisión organizacional. Cracks: modelos y validación; Líderes: diseño datos, gobernanza y CRISP-DM; Jefes: uso, coste de error, priorización y piloto. Conclusión es una recomendación condicionada, no promesa de reducción de estancia.">
+<div class="slidehead"><div class="eyebrow">CRISP-DM 06 · Decisión y gobernanza</div><h1>Un modelo valioso es uno que sabemos cuándo utilizar</h1><p>La predicción es el inicio de una decisión mejor informada, no el resultado de negocio por sí sola.</p></div>
+<div class="content">
+<div class="grid three">
+<div class="panel role"><div class="rolekey">Cracks · Especialización ML</div><h3>Rigor del modelo</h3><p>Diseño experimental; líneas base; comparación de regresores; hiperparámetros; sesgo, varianza y métrica coherente con la decisión.</p></div>
+<div class="panel role"><div class="rolekey">Líderes · Ciencia de Datos</div><h3>Calidad y trazabilidad</h3><p>CRISP-DM; diccionario; integración Boletín–CMBD; control de fuga; representatividad y monitoreo de predicciones.</p></div>
+<div class="panel role"><div class="rolekey">Jefes y jefas · Gerencia IA</div><h3>Valor y responsabilidad</h3><p>Priorización operativa, impacto esperado y sus supuestos, riesgos a pacientes y reglas para uso supervisado.</p></div>
+</div>
+<div class="grid two spaced">
+<div class="panel tint"><h3>Hipótesis de mejora</h3><p>Mostrar una estimación con incertidumbre podría permitir revisar antes casos de estancia prolongada y coordinar egresos, sin imponer fechas de alta.</p><p><strong>Validación:</strong> registrar uso del tablero, egresos observados, error de predicción, cobertura y oportunidad operativa; comparar contra prácticas anteriores.</p></div>
+<div class="panel"><h3>Condiciones para escalar</h3><ul class="mini-list"><li>Validación prospectiva sobre un período intacto.</li><li>Calidad y oportunidad de GRD provisional.</li><li>Vigilancia de MAE, RMSE, sesgo y subgrupos.</li><li>Alertas para estancias largas y predicciones no confiables.</li><li>Autorización y gobernanza de acceso a resultados.</li></ul></div>
+</div>
+<div class="band"><strong>Conclusión:</strong> Random Forest fue elegido por su MAE en validación cruzada. Superó el P50 histórico en el MAE por snapshot de 2026, pero no en todos los criterios ni grupos. La recomendación es implementar un <strong>piloto supervisado y medible</strong>, no automatizar altas ni prometer ahorros no observados.</div>
+<div class="source">Resultados: cuaderno técnico y tablas de validación 2025 / prueba temporal 2026. La sustentación es de 10 minutos, más 5 de preguntas.</div>
+</div></section>
+</main>
+<div id="notes" class="notes" role="note"></div>
+<footer class="footer"><div class="left"><span id="currentCounter">1 de 10</span><span>·</span><span>← → para navegar</span></div><div class="right"><button id="prev" type="button">← Anterior</button><button id="next" type="button">Siguiente →</button></div></footer>
+</div></div><div class="progress"><span id="progressBar" style="width:10%"></span></div>
+<script src="assets/site.js" defer></script>
+</body></html>
