@@ -156,24 +156,31 @@ qa("[data-sort]").forEach(btn=>btn.addEventListener("click",()=>{
  renderCensus();
 }));
 renderCensus();
-const GRUPS={
- "medicina":{norm:7,weight:1.15,p50:6.1},
- "cirugia":{norm:10,weight:1.65,p50:9.3},
- "cardio":{norm:9,weight:1.5,p50:8.2},
- "cuidados":{norm:16,weight:2.35,p50:14.5}
-};
-function calc(){
- const age=Number(q("#calcAge").value),day=Number(q("#calcDay").value);
- const sex=q("#calcSex").value,grd=q("#calcGroup").value,sev=Number(q("#calcSev").value);
- if(!Number.isFinite(age)||age<0||age>110||!Number.isFinite(day)||day<0||day>100){q("#calcResult").textContent="Valores fuera de rango";return;}
- const g=GRUPS[grd];
- const expected=.55*g.norm+.45*g.p50+1.65*(sev-1)+.85*(g.weight-1)+Math.max(0,age-50)*.035+(sex==="M"?.15:0);
- const remaining=Math.max(.5,expected-day)+Math.max(0,day-expected)*.12;
- const projected=day+remaining;
- q("#calcResult").textContent=num(remaining,1)+" días";
- q("#calcDetail").textContent="Estancia total ilustrativa: "+num(projected,1)+" días · transcurridos: "+num(day,1)+" · referencia de grupo: "+num(g.p50,1)+".";
+
+const GRUPS=[["MH BRONQUIOLITIS Y ASMA",[[134,2.5,2.33,0.35],[93,3,3.25,0.51],[172,4,3.61,0.58]]],["MH DISFUNCIÓN, REACCIÓN O COMPL. POR DISP., INJ. O TRAS. DEL TRACTO URINARIO",[[74,0,2.78,0.55],[141,0,3.81,0.73],[72,0,5.96,1.13]]],["MH INFECCIONES DE RIÑÓN Y TRACTO URINARIO",[[49,3,2.94,0.43],[76,5,3.8,0.57],[193,6,5.27,0.79]]],["MH INSUFICIENCIA CARDIACA",[[27,4,3.03,0.47],[151,5,3.86,0.63],[307,7,5.92,1.01]]],["MH OTROS SIGNOS, SÍNTOMAS Y DIAGNÓSTICOS DE APARATO RESPIRATORIO",[[99,2,2.23,0.42],[92,3,3.1,0.57],[152,4,5.38,0.96]]],["PH CATETERISMO CARDIACO",[[177,3,2.24,0.88],[254,4,3.33,1.07],[259,5,6.44,1.72]]],["PH OTROS PROCEDIMIENTOS CARDIOTORÁCICOS",[[134,3,2.99,1.94],[49,6,5.42,2.66],[99,11,9.79,4.18]]],["PH OTROS PROCEDIMIENTOS SOBRE APARATO CIRCULATORIO",[[78,3,2.49,1.56],[76,6,5,1.92],[123,12,10.58,3.27]]],["PH PROCEDIMIENTOS CARDIOVASCULARES PERCUTÁNEOS",[[515,2,1.9,1.72],[354,4,2.5,1.82],[253,5,5.18,2.48]]],["PH PROCEDIMIENTOS NO COMPLEJOS SOBRE APARATO RESPIRATORIO",[[26,3.5,2.85,1.04],[32,8.5,4.74,1.36],[302,9,7.13,2.11]]]];
+for(const [name] of GRUPS){let option=el("option");option.value=name;option.textContent=name;q("#calcGroup").appendChild(option);}
+function syncSeveridad(){
+ const group=GRUPS.find(x=>x[0]===q("#calcGroup").value),previous=q("#calcSev").value;
+ q("#calcSev").replaceChildren();
+ if(!group)return;
+ group[1].forEach((r,i)=>{let opt=el("option");opt.value=String(i);opt.textContent="Severidad "+(i+1);q("#calcSev").appendChild(opt);});
+ if(["0","1","2"].includes(previous))q("#calcSev").value=previous;
 }
-qa("#calcForm select, #calcForm input").forEach(control=>control.addEventListener("change",calc));
-q("#calcForm").addEventListener("submit",e=>{e.preventDefault();calc();});
-calc();
+function calc(){
+ const age=Number(q("#calcAge").value),day=Number(q("#calcDay").value),group=GRUPS.find(x=>x[0]===q("#calcGroup").value);
+ if(!group||!Number.isFinite(age)||age<0||age>110||!Number.isFinite(day)||day<0||day>100){q("#calcResult").textContent="Revisa los datos";return;}
+ const item=group[1][Number(q("#calcSev").value)];if(!item)return;
+ const [n,p50,norm,weight]=item;const remaining=Math.max(0,p50-day);
+ q("#calcWeight").textContent=num(weight,2);
+ q("#calcNorm").textContent=num(norm,2)+" días";
+ q("#calcP50").textContent=num(p50,2)+" días";
+ q("#calcN").textContent=String(n)+" episodios";
+ q("#calcResult").textContent=num(remaining,1)+" días";
+ q("#calcDetail").textContent="Estancia total según referencia: "+num(day+remaining,1)+" días · día actual: "+num(day,1)+". Predicción base de 2024, no Random Forest.";
+}
+q("#calcGroup").addEventListener("change",()=>{syncSeveridad();calc()});
+q("#calcSev").addEventListener("change",calc);
+qa("#calcForm select, #calcForm input").forEach(x=>x.addEventListener("change",calc));
+q("#calcForm").addEventListener("submit",e=>{e.preventDefault();calc()});
+syncSeveridad();calc();
 const hash=parseInt(location.hash.slice(1),10);navigate(Number.isFinite(hash)?hash-1:0);
