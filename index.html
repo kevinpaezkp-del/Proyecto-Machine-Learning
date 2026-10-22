@@ -114,7 +114,7 @@
 </div>
 <div class="grid two spaced">
 <div class="panel"><h3>¿Qué es un snapshot?</h3><p>Un mismo episodio puede observarse en días <strong>0, 1, 3, 7, 14, 30 y 60</strong> si seguía hospitalizado. El objetivo cambia con el día observado.</p><div class="band" style="margin:12px 0">GroupKFold mantiene <strong>todos los snapshots de un episodio en el mismo fold</strong>, para no aprender de un paciente y evaluarlo a la vez.</div></div>
-<div class="panel"><h3>¿Qué nos pide el profesor?</h3><div class="tablewrap"><table><tbody><tr><td>Línea base</td><td>P50 histórica y mediana constante</td></tr><tr><td>Modelos</td><td>Familias lineales, árboles, ensambles y MLP</td></tr><tr><td>Preprocesamiento</td><td>Imputación y transformaciones dentro de Pipeline</td></tr><tr><td>Sobreajuste</td><td>MAE train vs CV, curva de aprendizaje</td></tr><tr><td>Prueba</td><td>Aplicación retrospectiva en 2026</td></tr></tbody></table></div></div>
+<div class="panel"><h3>Controles del diseño experimental</h3><div class="tablewrap"><table><tbody><tr><td>Línea base</td><td>P50 histórica y mediana constante</td></tr><tr><td>Modelos</td><td>Familias lineales, árboles, ensambles y MLP</td></tr><tr><td>Preprocesamiento</td><td>Imputación y transformaciones dentro de Pipeline</td></tr><tr><td>Sobreajuste</td><td>Brecha MAE entrenamiento–validación</td></tr><tr><td>Prueba externa temporal</td><td>Evaluación retrospectiva 2026</td></tr></tbody></table></div></div>
 </div><div class="band gold">Límite declarado: el GRD final puede incorporar eventos posteriores al día simulado y las métricas de 2026 fueron inspeccionadas durante el desarrollo. Una cohorte futura no utilizada es indispensable para validación prospectiva independiente.</div>
 </div></section>
 
@@ -168,16 +168,21 @@
 <div class="tablewrap censo-table"><table><thead><tr><th><button type="button" class="toolbtn" data-sort="idx">Caso ↕</button></th><th>Unidad ilustrativa</th><th>Estancia actual (d)</th><th><button type="button" class="toolbtn" data-sort="remaining">Restantes (d) ↕</button></th><th><button type="button" class="toolbtn" data-sort="total">Total previsto (d) ↕</button></th><th>Señal operativa</th></tr></thead><tbody id="censusBody"></tbody></table></div>
 <div class="boxnote" id="censusSortInfo">Orden: caso</div>
 <div class="calc" id="calcSection">
-<div class="grid two"><div><h3>Calculadora interactiva de escenarios</h3><p class="textsmall">Explora cómo variables demográficas, referencia de grupo, severidad y día de evolución podrían influir en una estimación.</p></div><div class="panel tint"><div class="kicker">Simulación pedagógica</div><div class="meta">Utiliza una fórmula ilustrativa, <strong>no</strong> ejecuta el Random Forest entrenado. El servicio local de inferencia real se documenta en el repositorio.</div></div></div>
+<div class="grid two"><div><h3>Calculadora de referencia P50 · 10 GRD</h3><p class="textsmall">Selecciona un grupo diagnóstico real, severidad, edad, sexo y día actual. El sistema completa <strong>Norma, Peso y P50</strong> usando la referencia de 2024.</p></div><div class="panel tint"><div class="kicker">Modelo de referencia histórico</div><p class="meta">En GitHub Pages calculamos la <strong>línea base P50</strong> de forma transparente. No es la predicción de Random Forest: para inferencia real con las ocho variables utiliza la <a href="https://github.com/kevinpaezkp-del/Proyecto-Machine-Learning/blob/main/app_demo.py">aplicación Python local</a>, que ejecuta el modelo entrenado.</p></div></div>
 <form id="calcForm"><div class="calc-grid">
-<label class="form-field">Grupo clínico ilustrativo<select id="calcGroup"><option value="medicina">Medicina</option><option value="cirugia">Cirugía</option><option value="cardio">Cardiología</option><option value="cuidados">Cuidados críticos</option></select></label>
-<label class="form-field">Severidad<select id="calcSev"><option value="1">1 · Baja</option><option value="2" selected>2 · Intermedia</option><option value="3">3 · Alta</option></select></label>
-<label class="form-field">Edad<input id="calcAge" type="number" value="55" min="0" max="110"/></label>
-<label class="form-field">Día actual<input id="calcDay" type="number" value="4" min="0" max="100"/></label>
+<label class="form-field" style="grid-column:span 2">GRD<select id="calcGroup"></select></label>
+<label class="form-field">Severidad<select id="calcSev"></select></label>
+<label class="form-field">Edad (años)<input id="calcAge" type="number" value="55" min="0" max="110"/></label>
+<label class="form-field">Día actual de hospitalización<input id="calcDay" type="number" value="4" min="0" max="100"/></label>
 <label class="form-field">Sexo<select id="calcSex"><option value="F">Femenino</option><option value="M">Masculino</option></select></label>
-<div class="form-field"><span>Acción</span><button type="submit">Calcular escenario</button></div>
-<div class="panel tint" style="grid-column:span 2"><div class="kicker">Días restantes · escenario</div><div class="calc result" id="calcResult" style="border:0;padding:0;background:none">—</div><div id="calcDetail" class="meta"></div></div>
-</div></form></div>
+<div class="panel tint"><div class="kicker">PESO_MODELO</div><strong id="calcWeight">—</strong></div>
+<div class="panel tint"><div class="kicker">NORMA_MODELO</div><strong id="calcNorm">—</strong></div>
+<div class="panel tint"><div class="kicker">P50_REF (2024)</div><strong id="calcP50">—</strong></div>
+<div class="panel tint"><div class="kicker">Referencia / n</div><strong id="calcN">—</strong></div>
+<div class="form-field"><span>Ejecutar referencia</span><button type="submit">Estimar por P50</button></div>
+<div class="panel tint" style="grid-column:span 2"><div class="kicker">Días restantes · referencia histórica P50</div><div class="calc result" id="calcResult" style="border:0;padding:0;background:none">—</div><div id="calcDetail" class="meta"></div></div>
+</div></form>
+<p class="boxnote">Edad y sexo aparecen porque forman parte de los ocho predictores del modelo completo, <strong>pero no modifican la línea base P50</strong>. Tampoco lo hace Norma ni Peso: P50 utiliza GRD, severidad y día actual. Esto permite comparar después la referencia con la predicción del Random Forest en la aplicación local.</p></div>
 <div class="source">Semáforo orientativo de días restantes: verde &lt;2, ámbar 2–&lt;5, azul ≥5. No es una clasificación de riesgo clínico ni reemplaza la decisión profesional.</div>
 </div></section>
 
