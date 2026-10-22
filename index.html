@@ -102,6 +102,18 @@
 <div class="tablefoot">Variable objetivo: <strong>RESTANTE_REAL = estancia final observada − DIA_ACTUAL</strong>. El resultado final del episodio se utiliza como etiqueta retrospectiva, nunca como predictor.</div></div>
 <div class="grid two spaced"><div class="panel tint"><h3>Escalado y codificación</h3><p>Regresión lineal, Ridge y red neuronal requieren preprocesamiento consistente. Árboles y ensambles separan por umbrales; el escalado numérico no es requisito para ellos.</p></div><div class="panel tint"><h3>Redundancia controlada</h3><p>Correlación Pearson: <strong>Norma–P50 = 0,88</strong> y <strong>Peso–Norma = 0,85</strong>. No se descartan automáticamente: se contrastó su aporte mediante ablación con los mismos folds.</p></div></div>
 <div class="band">Excluimos identificadores, duración final como predictor y transformaciones redundantes como IEMA, brechas y razones relacionadas con estancia.</div>
+<details class="panel spaced"><summary style="cursor:pointer;font-weight:800">¿Cuáles predictores usa más Random Forest? · ver importancia global</summary>
+<p class="textsmall">Importancias calculadas sobre los 100 árboles del modelo guardado y agregadas por variable original (incluida codificación One-Hot). Representan utilidad predictiva interna del ensamble, <strong>no días atribuibles ni efectos causales</strong>. Las correlaciones pueden redistribuir la importancia entre GRD, severidad, peso, norma y P50.</p>
+<div class="tablewrap"><table><thead><tr><th>Variable</th><th>Importancia del ensamble</th></tr></thead><tbody>
+<tr><td>Norma de estancia (NORMA_MODELO)</td><td>37,51 %</td></tr>
+<tr><td>Edad</td><td>29,84 %</td></tr>
+<tr><td>P50 histórica 2024</td><td>12,45 %</td></tr>
+<tr><td>GRD (categorías agregadas)</td><td>9,84 %</td></tr>
+<tr><td>Peso del GRD</td><td>5,12 %</td></tr>
+<tr><td>Sexo</td><td>2,79 %</td></tr>
+<tr><td>Día actual</td><td>2,38 %</td></tr>
+<tr><td>Severidad</td><td>0,07 %</td></tr>
+</tbody></table></div></details>
 </div></section>
 
 <section class="slide" data-title="Diseño experimental" data-note="Probar que se evitó fuga por paciente con GroupKFold. 2024 fija las referencias, 2025 entrenamiento, 2026 prueba; aclarar que el test 2026 fue revisado en iteraciones anteriores y no es un periodo completamente intacto para la versión final.">
