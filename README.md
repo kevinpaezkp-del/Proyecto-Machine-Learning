@@ -30,9 +30,12 @@ Presentación académica interactiva, organizada en diez momentos para sustentar
 
 ## Cómo funciona la web
 
-Interfaz HTML/CSS/JavaScript sin frameworks ni servicios externos. Navegación por menú o flechas del teclado. Tablas de entrenamiento y prueba, intervalos de error, auditoría por subgrupos, censo con buscador y filtros, y calculadora ilustrativa.
+La exposición usa HTML, CSS y JavaScript estáticos con tablas y gráficos de la ejecución retrospectiva. El tablero de seguimiento presenta 132 filas ilustrativas (no pacientes), con totales agregados reales.
 
-**El censo de 132 filas y la calculadora son ejemplos pedagógicos de interfaz.** Las cifras globales del corte son resultados agregados observados. Los renglones de la tabla no corresponden a registros de pacientes y la calculadora no ejecuta el regresor entrenado. Para dos inferencias reales fuera de Jupyter existe el servicio local `app_demo.py`, que necesita el modelo institucional `.joblib` en un equipo autorizado.
+**La calculadora pública usa únicamente la línea base P50 histórica de 2024**, con diez GRD representativos y sus tres severidades. Completa Peso, Norma y P50 a partir del grupo, y estima `max(0, P50_REF−DIA_ACTUAL)`. Edad y sexo se muestran porque son predictores del modelo completo, pero no intervienen en esa línea base.
+
+**El Random Forest real se ejecuta con la aplicación Python local** mediante el archivo `modelo_final.joblib` mantenido fuera del repositorio. Esta separación es necesaria porque GitHub Pages no ejecuta Python/Joblib y no se publica el artefacto entrenado. En la aplicación local pueden introducirse dos escenarios nuevos y observar los ocho predictores, la estimación y sensibilidad a edad/sexo/día (sin interpretarla causalmente).
+
 
 ## Documentos de apoyo
 
